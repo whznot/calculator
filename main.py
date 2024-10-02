@@ -1,41 +1,21 @@
-print("write a number: ", end='')
+print("write an expression: ", end='')
+user_input = input()
 
 
-def get_valid_number(prompt):
-    try:
-        return int(prompt)
-    except ValueError:
-        print("write a valid number")
+def parse_expression(expression):
+    nums = []
+    operators = []
+    current_num = ''
+
+    for char in expression:
+        if char.isnumeric():
+            current_num += char
+        elif char in '+-/*':
+            nums.append(current_num)
+            operators.append(char)
+            current_num = ''
+        else:
+            return "expression is invalid"
 
 
-num1 = get_valid_number(input())
-
-print("choose operation:\n1. +\n2. -\n3. *\n4. /\n5. %\n6. **")
-operation = input()
-availableOperations = ['+', '-', '*', '/', '%', '**']
-
-print("write a number: ", end='')
-num2 = get_valid_number(input())
-
-if operation in availableOperations:
-    match operation:
-        case '+':
-            result = num1 + num2
-        case '-':
-            result = num1 - num2
-        case '*':
-            result = num1 * num2
-        case '/':
-            result = num1 / num2
-        case '%':
-            result = num1 % num2
-        case '**':
-            result = num1 ** num2
-        case _:
-            result = "enter a valid operation"
-else:
-    result = "enter a valid operation"
-
-print(result)
-
-print("want to add more numbers? (y/n)")
+parse_expression(user_input)
